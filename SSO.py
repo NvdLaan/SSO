@@ -24,7 +24,7 @@ def Detect():  # shit om platform te detecteren
 pf = Detect()  # Makes from the Detect output a variable
 
 def Save_Credentials():  # Saves username + password in txt file
-    file = open(filepath, "r+",)
+    file = open(filepath, "w+",)
     new_username = input("Enter Username: ")
     file.write(new_username + ",")
     file.flush()
@@ -75,8 +75,19 @@ def Login():
     if os.stat(filepath).st_size == 0:
         # If no credentials in txt run Save_Credentials()
         Save_Credentials()
+    elif os.path.isfile(filepath):
+        Save_Credentials()
     else:  # else run Enter_Credentials()
         Enter_Credentials()
 
 
 Login()  # Run the Login() function
+
+# Testing
+
+#Save_Credentials()
+
+#if os.path.isfile(filepath):
+#    print('succes')
+#else:
+#    print('error')
