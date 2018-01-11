@@ -12,17 +12,20 @@ loginbutton = (1104, 135)
 
 def Detect():  # shit om platform te detecteren
     if _platform == "linux" or _platform == "linux2":
-        pf = 'linux'  # linux
+        return 'linux'  # linux
     elif _platform == "darwin":
-        pf = 'darwin'  # MacOS
+        return 'darwin'  # MacOS
     elif _platform == "win32":
-        pf = 'win32'  # Windows
+        return 'win32'  # Windows
     elif _platform == "win64":
-        pf = 'win64'  # Windows 64-bit
+        return 'win64'  # Windows 64-bit
+
+
+pf = Detect()
 
 
 def Save_Credentials():  # Saves username + password in txt file
-    file = open('/tmp/pytest.txt', "r+",)
+    file = open(filename + 'pytest.txt', "r+",)
     new_username = input("Enter Username: ")
     file.write(new_username + ",")
     file.flush()
@@ -76,5 +79,6 @@ def Start():
         credentialfile = 'c:\\temp\\' + filename
         Login()
 
-Detect()
+
 Start()
+#print(Detect())
