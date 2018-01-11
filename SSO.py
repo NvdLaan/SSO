@@ -1,6 +1,18 @@
 import os
 import pyautogui
 import time
+# shit om platform te detecteren
+#from sys import platform as _platform
+#
+#if _platform == "linux" or _platform == "linux2":
+#   # linux
+#elif _platform == "darwin":
+#   # MAC OS X
+#elif _platform == "win32":
+#   # Windows
+#elif _platform == "win64":
+#    # Windows 64-bit
+
 
 credentialfile = 'c:\\temp\\pytest.txt'
 usernamefield = (746, 135)
@@ -9,7 +21,7 @@ loginbutton = (1104, 135)
 
 def Save_Credentials(): #Saves username + password in txt file
     file = open('c:\\temp\\pytest.txt', "r+",)
-    new_username = input("Enter Username: ") 
+    new_username = input("Enter Username: ")
     file.write(new_username + ",")
     file.flush()
 
@@ -17,7 +29,7 @@ def Save_Credentials(): #Saves username + password in txt file
     file.write(new_password)
     file.flush()
     Enter_Credentials()
-    
+
 def Enter_Credentials(): #enters credentials from txt files, logs in
     with open (credentialfile) as credentials: #open txt file with credentials
         for line in credentials:
@@ -28,12 +40,12 @@ def Enter_Credentials(): #enters credentials from txt files, logs in
     pyautogui.click()
     pyautogui.typewrite(username)
     time.sleep(0.5)
-    
+
     pyautogui.moveTo (passwordfield) #Select username field, enter password
     pyautogui.click()
     pyautogui.typewrite(password)
     time.sleep(0.5)
-    
+
     pyautogui.moveTo (loginbutton) # click login button
     #pyautogui.click()
 
@@ -43,5 +55,4 @@ def Login():
     else:                              # else run Enter_Credentials()
         Enter_Credentials()
 
-Login () 
-
+Login ()
