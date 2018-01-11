@@ -79,4 +79,3 @@ def Start():
 credentialfile = Start()
 
 Login()
-#print(Detect())
