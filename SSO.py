@@ -12,13 +12,13 @@ loginbutton = (1104, 135)
 
 def Detect():  # shit om platform te detecteren
     if _platform == "linux" or _platform == "linux2":
-        print('linux')  # linux
+        pf = 'linux'  # linux
     elif _platform == "darwin":
-        print('darwin')  # MacOS
+        pf = 'darwin'  # MacOS
     elif _platform == "win32":
-        print('win32')  # Windows
+        pf = 'win32'  # Windows
     elif _platform == "win64":
-        print('win64')  # Windows 64-bit
+        pf = 'win64'  # Windows 64-bit
 
 
 def Save_Credentials():  # Saves username + password in txt file
@@ -63,12 +63,12 @@ def Login():
 
 
 def Start():
-    if Detect("linux") or Detect("darwin"):
+    if pf == "linux" or pf == "darwin":
         credentialfile = '/tmp/' + filename
         Login()
-    else Detect("win32") or Detect("win64"):
+    else pf == "win32" or pf == "win64":
         credentialfile = 'c:\\temp\\' + filename
         Login()
 
-
+Detect()
 Start()
