@@ -63,10 +63,16 @@ def Login():
 
 
 def Start():
-    if pf == "linux" or pf == "darwin":
+    if pf == "linux":
         credentialfile = '/tmp/' + filename
         Login()
-    else pf == "win32" or pf == "win64":
+    elif pf == "darwin":
+        credentialfile = '/tmp/' + filename
+        Login()
+    elif pf == "win32":
+        credentialfile = 'c:\\temp\\' + filename
+        Login()
+    elif pf == "win64":
         credentialfile = 'c:\\temp\\' + filename
         Login()
 
