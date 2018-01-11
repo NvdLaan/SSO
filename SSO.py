@@ -2,18 +2,22 @@ import os
 import pyautogui
 import time
 import getpass
+from sys import platform as _platform
 
 # shit om platform te detecteren
-#from sys import platform as _platform
-#
-#if _platform == "linux" or _platform == "linux2":
-#   # linux
-#elif _platform == "darwin":
-#   # MAC OS X
-#elif _platform == "win32":
-#   # Windows
-#elif _platform == "win64":
-#    # Windows 64-bit
+def Detect():
+    if _platform == "linux" or _platform == "linux2":
+        print 'linux'
+   # linux
+    elif _platform == "darwin":
+        print 'darwin'
+   # MacOS
+    elif _platform == "win32":
+        print 'win32'
+   # Windows
+    elif _platform == "win64":
+        print 'win64'
+    # Windows 64-bit
 
 
 credentialfile = '/tmp/pytest.txt'
