@@ -1,6 +1,8 @@
 import os
 import pyautogui
 import time
+import getpass
+
 # shit om platform te detecteren
 #from sys import platform as _platform
 #
@@ -14,18 +16,19 @@ import time
 #    # Windows 64-bit
 
 
-credentialfile = 'c:\\temp\\pytest.txt'
+credentialfile = '/tmp/pytest.txt'
 usernamefield = (746, 135)
 passwordfield = (930, 136)
 loginbutton = (1104, 135)
 
 def Save_Credentials(): #Saves username + password in txt file
-    file = open('c:\\temp\\pytest.txt', "r+",)
+    file = open('/tmp/pytest.txt', "r+",)
     new_username = input("Enter Username: ")
     file.write(new_username + ",")
     file.flush()
 
-    new_password = input("Enter Password: ")
+    pswd = getpass.getpass('Password:')
+    new_password = pswd
     file.write(new_password)
     file.flush()
     Enter_Credentials()
