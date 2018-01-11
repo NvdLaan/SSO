@@ -25,7 +25,7 @@ pf = Detect()
 
 
 def Save_Credentials():  # Saves username + password in txt file
-    file = open(filename + 'pytest.txt', "r+",)
+    file = open(credentialfile, "r+",)
     new_username = input("Enter Username: ")
     file.write(new_username + ",")
     file.flush()
@@ -67,18 +67,16 @@ def Login():
 
 def Start():
     if pf == "linux":
-        credentialfile = '/tmp/' + filename
-        Login()
+        return '/tmp/' + filename
     elif pf == "darwin":
-        credentialfile = '/tmp/' + filename
-        Login()
+        return '/tmp/' + filename
     elif pf == "win32":
-        credentialfile = 'c:\\temp\\' + filename
-        Login()
+        return 'c:\\temp\\' + filename
     elif pf == "win64":
-        credentialfile = 'c:\\temp\\' + filename
-        Login()
+        return 'c:\\temp\\' + filename
 
 
-Start()
+credentialfile = Start()
+
+Login()
 #print(Detect())
