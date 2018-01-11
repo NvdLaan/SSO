@@ -21,16 +21,16 @@ def Detect():  # shit om platform te detecteren
         return 'win64'  # Windows 64-bit
 
 
-pf = Detect()
-
+pf = Detect()  # Makes from the Detect output a variable
 
 def Save_Credentials():  # Saves username + password in txt file
-    file = open(credentialfile, "r+",)
+    file = open(filepath, "r+",)
     new_username = input("Enter Username: ")
     file.write(new_username + ",")
     file.flush()
 
     pswd = getpass.getpass('Password:')
+    # Creates a variable with the hidden password prompt
     new_password = pswd
     file.write(new_password)
     file.flush()
@@ -38,7 +38,7 @@ def Save_Credentials():  # Saves username + password in txt file
 
 
 def Enter_Credentials():  # enters credentials from txt files, logs in
-    with open(credentialfile) as credentials:  # open txt file with credentials
+    with open(filepath) as credentials:  # open txt file with credentials
         for line in credentials:
             username = (line.split(',')[0])  # grabs username from file
             password = (line.split(',')[1])  # grabs password from file
@@ -57,15 +57,7 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     # pyautogui.click()
 
 
-def Login():
-    if os.stat(credentialfile).st_size == 0:
-        # If no credentials in txt run Save_Credentials()
-        Save_Credentials()
-    else:  # else run Enter_Credentials()
-        Enter_Credentials()
-
-
-def Start():
+def Start():  # Compares the platform variable to the respected platform
     if pf == "linux":
         return '/tmp/' + filename
     elif pf == "darwin":
@@ -76,6 +68,15 @@ def Start():
         return 'c:\\temp\\' + filename
 
 
-credentialfile = Start()
+filepath = Start()  # Creates filepath variable with output of Start()
 
-Login()
+
+def Login():
+    if os.stat(filepath).st_size == 0:
+        # If no credentials in txt run Save_Credentials()
+        Save_Credentials()
+    else:  # else run Enter_Credentials()
+        Enter_Credentials()
+
+
+Login()  # Run the Login() function
