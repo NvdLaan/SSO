@@ -32,8 +32,8 @@ def Save_Credentials():  # Saves username + password in txt file
 
     pswd = getpass.getpass('Password:')
     # Creates a variable with the hidden password prompt
-    new_password = base64.b64encode(pswd)  # Encodes password
-    file.write(new_password)
+    new_password = base64.b64encode(pswd.encode())  # Encodes password
+    file.write(new_password.decode('utf-8'))
     file.flush()
     Enter_Credentials()
 
@@ -43,7 +43,8 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
         for line in credentials:
             username = (line.split(',')[0])  # grabs username from file
             encoded = (line.split(',')[1])  # grabs encoded password from file
-            password = base64.b64decode(encoded)  # Decodes password
+            passwordRaw = base64.b64decode(encoded)  # Decodes password
+            password = passwordRaw.decode("utf-8")
 
     pyautogui.moveTo(usernamefield)  # Select username field, enter username
     pyautogui.click()
