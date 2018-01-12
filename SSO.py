@@ -15,7 +15,7 @@ loginbutton = (1104, 135) # Respective GUI button location
 
 ### END User configurable variables ###
 
-version = '0.1.1' # Versioning to prevent file conflicts
+version = '0.1.3' # Versioning to prevent file conflicts
 
 def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
@@ -90,9 +90,6 @@ def Version():
     with open(filepath) as credentials:  # open file with version
         for line in credentials:
             return (line.split(',')[0])
-            #print((line.split(',')[0]))
-
-#curVersion = Version()
 
 
 def Login(): # Perform various checks what to do
@@ -107,8 +104,13 @@ def Login(): # Perform various checks what to do
                 Enter_Credentials()
             else:
             # If version is incorrect prompt for user action
-                print('Version is different **resolve function in development**')
-            #Save_Credentials
+                print('Version is different!!')
+                print('Do you want to rewrite the .db file?')
+                answer = input('Please indicate approval: [y/n]')
+                if not answer or answer[0].lower() != 'y':
+                    print('You did not indicate approval')
+                    exit(1)
+                Save_Credentials()
     else:  # else run Save_Credentials()
         Save_Credentials()
 
