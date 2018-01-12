@@ -2,6 +2,7 @@ import os
 import pyautogui
 import time
 import getpass
+import base64
 from sys import platform as _platform
 
 filename = 'pytest.txt'
@@ -31,7 +32,7 @@ def Save_Credentials():  # Saves username + password in txt file
 
     pswd = getpass.getpass('Password:')
     # Creates a variable with the hidden password prompt
-    new_password = pswd
+    new_password = base64.b64encode(pswd)  # Encodes password
     file.write(new_password)
     file.flush()
     Enter_Credentials()
@@ -41,7 +42,8 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     with open(filepath) as credentials:  # open txt file with credentials
         for line in credentials:
             username = (line.split(',')[0])  # grabs username from file
-            password = (line.split(',')[1])  # grabs password from file
+            encoded = (line.split(',')[1])  # grabs encoded password from file
+            password = base64.b64decode(encoded)  # Decodes password
 
     pyautogui.moveTo(usernamefield)  # Select username field, enter username
     pyautogui.click()
