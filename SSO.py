@@ -45,9 +45,9 @@ filepath = Start()  # Creates filepath variable with output of  Start()
 
 def Save_Credentials():  # Saves username + password + version in txt file
     file = open(filepath, "w+",)
-    file.write(version + ",")
+    file.write(version + ";")
     new_username = input("Enter Username: ")
-    file.write(new_username + ",")
+    file.write(new_username + ";")
     file.flush()
 
     pswd = getpass.getpass('Password:')
@@ -68,7 +68,7 @@ def Save_Credentials():  # Saves username + password + version in txt file
     print('1 Seconds')
     time.sleep(1)
     usernamefield = pyautogui.position()
-    file.write(',' + (str(usernamefield)))
+    file.write(';' + (str(usernamefield)))
     file.flush()
     print(usernamefield)
     print('Now select the password field in 10 seconds')
@@ -84,7 +84,7 @@ def Save_Credentials():  # Saves username + password + version in txt file
     print('1 Seconds')
     time.sleep(1)
     passwordfield = pyautogui.position()
-    file.write(',' + (str(passwordfield)))
+    file.write(';' + (str(passwordfield)))
     file.flush()
     print(passwordfield)
     print('Now select the button in 10 seconds')
@@ -100,7 +100,7 @@ def Save_Credentials():  # Saves username + password + version in txt file
     print('1 Seconds')
     time.sleep(1)
     loginbutton = pyautogui.position()
-    file.write(',' + (str(loginbutton)))
+    file.write(';' + (str(loginbutton)))
     file.flush()
     print(loginbutton)
     Enter_Credentials()
@@ -110,34 +110,34 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     with open(filepath) as credentials:  # open txt file with credentials
         for line in credentials:
 
-            username = (line.split(',')[1])  # grabs username from file
-            encoded = (line.split(',')[2])  # grabs encoded password from file
+            username = (line.split(';')[1])  # grabs username from file
+            encoded = (line.split(';')[2])  # grabs encoded password from file
             passwordRaw = base64.b64decode(encoded)  # Decodes password
             password = passwordRaw.decode("utf-8")
-            usernamefield = (line.split(',')[3])
-            passwordfield = (line.split(',')[4])
-            loginbutton = (line.split(',')[5])
+            readusernamefield = (line.split(';')[3])
+            readpasswordfield = (line.split(';')[4])
+            readloginbutton = (line.split(';')[5])
 
-    pyautogui.moveTo(usernamefield)  # Select username field, enter username
+    pyautogui.moveTo(readusernamefield)  # Select username field, enter username
     pyautogui.click()
     time.sleep(0.2)
     pyautogui.click()
     pyautogui.typewrite(username)
     time.sleep(0.5)
 
-    pyautogui.moveTo(passwordfield)  # Select username field, enter password
+    pyautogui.moveTo(readpasswordfield)  # Select username field, enter password
     pyautogui.click()
     pyautogui.typewrite(password)
     time.sleep(0.5)
 
-    pyautogui.moveTo(loginbutton)  # click login button
+    pyautogui.moveTo(readloginbutton)  # click login button
     pyautogui.click()
 
 
 def Version():
     with open(filepath) as credentials:  # open file with version
         for line in credentials:
-            return (line.split(',')[0])
+            return (line.split(';')[0])
 
 
 def Login(): # Perform various checks what to do
@@ -164,3 +164,14 @@ def Login(): # Perform various checks what to do
 
 
 Login()  # Run the Login() function
+"""
+with open(filepath) as credentials:  # open file with version
+    for line in credentials:
+
+        print(line.split(';')[0])
+        print(line.split(';')[1])
+        print(line.split(';')[2])
+        print(line.split(';')[3])
+        print(line.split(';')[4])
+        print(line.split(';')[5])
+"""
