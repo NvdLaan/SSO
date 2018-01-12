@@ -15,7 +15,7 @@ loginbutton = (1104, 135) # Respective GUI button location
 
 ### END User configurable variables ###
 
-version = '0.1.0' # Versioning to prevent file conflicts
+version = '0.1.1' # Versioning to prevent file conflicts
 
 def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
@@ -83,12 +83,13 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     pyautogui.moveTo(loginbutton)  # click login button
     # pyautogui.click()
 
+
 def Version():
     with open(filepath) as credentials:  # open file with version
         for line in credentials:
             return (line.split(',')[0])
 
-curVersion = Version()
+#curVersion = Version()
 
 
 def Login(): # Perform various checks what to do
@@ -99,7 +100,7 @@ def Login(): # Perform various checks what to do
             Save_Credentials()
         elif os.stat(filepath).st_size > 0:
             # If file has content and is the same version run Enter_Credentials()
-            if version == curVersion:
+            if version == (Version()):
                 Enter_Credentials()
             else:
             # If version is incorrect prompt for user action
