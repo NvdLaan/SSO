@@ -15,6 +15,10 @@ loginbutton = (1104, 135) # Respective GUI button location
 
 ### END User configurable variables ###
 
+version = '0.1.0' # Versioning to prevent file conflicts
+filepath = Start()  # Creates filepath variable with output of  Start()
+pf = Detect()  # Creates variable with output of Detect()
+
 def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
         return 'linux'  # linux
@@ -40,8 +44,9 @@ def Start():  # Compares the platform variable to the respected platform...
         return 'c:\\temp\\' + filename
 
 
-def Save_Credentials():  # Saves username + password in txt file
+def Save_Credentials():  # Saves username + password + version in txt file
     file = open(filepath, "w+",)
+    file.write(version + ",")
     new_username = input("Enter Username: ")
     file.write(new_username + ",")
     file.flush()
@@ -57,8 +62,8 @@ def Save_Credentials():  # Saves username + password in txt file
 def Enter_Credentials():  # enters credentials from txt files, logs in
     with open(filepath) as credentials:  # open txt file with credentials
         for line in credentials:
-            username = (line.split(',')[0])  # grabs username from file
-            encoded = (line.split(',')[1])  # grabs encoded password from file
+            username = (line.split(',')[1])  # grabs username from file
+            encoded = (line.split(',')[2])  # grabs encoded password from file
             passwordRaw = base64.b64decode(encoded)  # Decodes password
             password = passwordRaw.decode("utf-8")
 
@@ -88,8 +93,5 @@ def Login(): # Perform various checks what to do
     else:  # else run Save_Credentials()
         Save_Credentials()
 
-
-filepath = Start()  # Creates filepath variable with output of  Start()
-pf = Detect()  # Creates variable with output of Detect()
 
 Login()  # Run the Login() function
