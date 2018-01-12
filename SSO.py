@@ -72,6 +72,8 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
 
     pyautogui.moveTo(usernamefield)  # Select username field, enter username
     pyautogui.click()
+    time.sleep(0.2)
+    pyautogui.click()
     pyautogui.typewrite(username)
     time.sleep(0.5)
 
@@ -81,13 +83,14 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     time.sleep(0.5)
 
     pyautogui.moveTo(loginbutton)  # click login button
-    # pyautogui.click()
+    pyautogui.click()
 
 
 def Version():
     with open(filepath) as credentials:  # open file with version
         for line in credentials:
             return (line.split(',')[0])
+            #print((line.split(',')[0]))
 
 #curVersion = Version()
 
