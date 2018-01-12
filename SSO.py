@@ -16,8 +16,6 @@ loginbutton = (1104, 135) # Respective GUI button location
 ### END User configurable variables ###
 
 version = '0.1.0' # Versioning to prevent file conflicts
-filepath = Start()  # Creates filepath variable with output of  Start()
-pf = Detect()  # Creates variable with output of Detect()
 
 def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
@@ -32,6 +30,8 @@ def Detect():  # Detect the platform
         print('Error: Platform unknown')
 
 
+pf = Detect()  # Creates variable with output of Detect()
+
 def Start():  # Compares the platform variable to the respected platform...
     # and returns the path+filename
     if pf == "linux":
@@ -43,6 +43,8 @@ def Start():  # Compares the platform variable to the respected platform...
     elif pf == "win64":
         return 'c:\\temp\\' + filename
 
+
+filepath = Start()  # Creates filepath variable with output of  Start()
 
 def Save_Credentials():  # Saves username + password + version in txt file
     file = open(filepath, "w+",)
@@ -62,6 +64,7 @@ def Save_Credentials():  # Saves username + password + version in txt file
 def Enter_Credentials():  # enters credentials from txt files, logs in
     with open(filepath) as credentials:  # open txt file with credentials
         for line in credentials:
+
             username = (line.split(',')[1])  # grabs username from file
             encoded = (line.split(',')[2])  # grabs encoded password from file
             passwordRaw = base64.b64decode(encoded)  # Decodes password
@@ -80,6 +83,13 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     pyautogui.moveTo(loginbutton)  # click login button
     # pyautogui.click()
 
+def Version():
+    with open(filepath) as credentials:  # open file with version
+        for line in credentials:
+            return (line.split(',')[0])
+
+curVersion = Version()
+
 
 def Login(): # Perform various checks what to do
     if os.path.isfile(filepath):
@@ -88,8 +98,13 @@ def Login(): # Perform various checks what to do
             # If file has no content run Save_Credentials()
             Save_Credentials()
         elif os.stat(filepath).st_size > 0:
-            # If file has content run Enter_Credentials()
-            Enter_Credentials()
+            # If file has content and is the same version run Enter_Credentials()
+            if version == curVersion:
+                Enter_Credentials()
+            else:
+            # If version is incorrect prompt for user action
+                print('Version is different **resolve function in development**')
+            #Save_Credentials
     else:  # else run Save_Credentials()
         Save_Credentials()
 
