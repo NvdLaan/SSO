@@ -5,13 +5,17 @@ import getpass
 import base64
 from sys import platform as _platform
 
-filename = 'pytest.txt'
-usernamefield = (746, 135)
-passwordfield = (930, 136)
-loginbutton = (1104, 135)
+### User configurable variables ###
 
+filename = 'pytest.db'
+# Filename in /tmp/ (MacOS & Linux) or c:\\temp\\ (Windows)
+usernamefield = (746, 135) # Respective GUI field location
+passwordfield = (930, 136) # Respective GUI field location
+loginbutton = (1104, 135) # Respective GUI button location
 
-def Detect():  # shit om platform te detecteren
+### END User configurable variables ###
+
+def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
         return 'linux'  # linux
     elif _platform == "darwin":
@@ -20,12 +24,24 @@ def Detect():  # shit om platform te detecteren
         return 'win32'  # Windows
     elif _platform == "win64":
         return 'win64'  # Windows 64-bit
+    else:
+        print('Error: Platform unknown')
 
 
-pf = Detect()  # Makes from the Detect output a variable
+def Start():  # Compares the platform variable to the respected platform...
+    # and returns the path+filename
+    if pf == "linux":
+        return '/tmp/' + filename
+    elif pf == "darwin":
+        return '/tmp/' + filename
+    elif pf == "win32":
+        return 'c:\\temp\\' + filename
+    elif pf == "win64":
+        return 'c:\\temp\\' + filename
+
 
 def Save_Credentials():  # Saves username + password in txt file
-    file = open(filepath, "r+",)
+    file = open(filepath, "w+",)
     new_username = input("Enter Username: ")
     file.write(new_username + ",")
     file.flush()
@@ -60,26 +76,20 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     # pyautogui.click()
 
 
-def Start():  # Compares the platform variable to the respected platform
-    if pf == "linux":
-        return '/tmp/' + filename
-    elif pf == "darwin":
-        return '/tmp/' + filename
-    elif pf == "win32":
-        return 'c:\\temp\\' + filename
-    elif pf == "win64":
-        return 'c:\\temp\\' + filename
-
-
-filepath = Start()  # Creates filepath variable with output of Start()
-
-
-def Login():
-    if os.stat(filepath).st_size == 0:
-        # If no credentials in txt run Save_Credentials()
+def Login(): # Perform various checks what to do
+    if os.path.isfile(filepath):
+        # If file exists run content check
+        if os.stat(filepath).st_size == 0:
+            # If file has no content run Save_Credentials()
+            Save_Credentials()
+        elif os.stat(filepath).st_size > 0:
+            # If file has content run Enter_Credentials()
+            Enter_Credentials()
+    else:  # else run Save_Credentials()
         Save_Credentials()
-    else:  # else run Enter_Credentials()
-        Enter_Credentials()
 
+
+filepath = Start()  # Creates filepath variable with output of  Start()
+pf = Detect()  # Creates variable with output of Detect()
 
 Login()  # Run the Login() function
