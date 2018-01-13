@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# # -*- coding: utf-8 -*-
+
 import os
 import pyautogui
 import time
@@ -10,14 +13,11 @@ import subprocess
 import webbrowser
 
 
-### User configurable variables ###
-
+##### Configurable variables #####
 # Filename in /tmp/ (MacOS & Linux) or c:\\temp\\ (Windows)
-filename = 'pytest.db'
-
-### END User configurable variables ###
-
-version = '0.3.2' # Versioning to prevent file conflicts
+filename = 'SSO.db'
+version = '0.3.3' # Versioning to prevent file conflicts
+##### END Configurable variables #####
 
 def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
@@ -62,38 +62,32 @@ def Save_Credentials():  # Saves username + password + version in txt file
     file = open(filepath, "w+",)
 
     file.write(version + ";")
-    file.flush()
 
     new_username = input("Enter Username: ")
     file.write(new_username + ";")
-    file.flush()
 
     pswd = getpass.getpass('Password:')
     # Creates a variable with the hidden password prompt
     new_password = base64.b64encode(pswd.encode())  # Encodes password
     file.write(new_password.decode('utf-8'))
-    file.flush()
 
     print('Place your pointer on the usernamefield:')
     usernamefield = Select()
 
     file.write(';' + (str(usernamefield[0])))
     file.write(';' + (str(usernamefield[1])))
-    file.flush()
 
     print('Place your pointer on the passwordfield:')
     passwordfield = Select()
     file.write(';' + (str(passwordfield[0])))
     file.write(';' + (str(passwordfield[1])))
-    file.flush()
 
     print('Place your pointer on the login button:')
     loginbutton = Select()
     file.write(';' + (str(loginbutton[0])))
     file.write(';' + (str(loginbutton[1])))
+
     file.flush()
-
-
     Enter_Credentials()
 
 #Open applicaties in chrome    
@@ -134,14 +128,14 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     pyautogui.moveTo(usernamefieldx,usernamefieldy)  # Select username field, enter username
     pyautogui.click()
     time.sleep(0.2)
-    pyautogui.click()
+    pyautogui.click(clicks=3)
     pyautogui.typewrite(username)
     time.sleep(0.5)
 
     pyautogui.moveTo(passwordfieldx,passwordfieldy)  # Select username field, enter password
-    pyautogui.click()
+    pyautogui.click(clicks=3)
     pyautogui.typewrite(password)
-    time.sleep(0.5)
+    #time.sleep(0.5)
 
     pyautogui.moveTo(loginbuttonx,loginbuttony)  # click login button
     pyautogui.click()
