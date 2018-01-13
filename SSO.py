@@ -12,7 +12,7 @@ filename = 'pytest.db'
 
 ### END User configurable variables ###
 
-version = '0.2.0' # Versioning to prevent file conflicts
+version = '0.3.1' # Versioning to prevent file conflicts
 
 def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
@@ -71,20 +71,24 @@ def Save_Credentials():  # Saves username + password + version in txt file
 
     print('Select username field')
     usernamefield = Select()
-    file.write(';' + (str(usernamefield)))
+
+    file.write(';' + (str(usernamefield[0])))
+    file.write(';' + (str(usernamefield[1])))
     file.flush()
 
     print('Select password field')
     passwordfield = Select()
-    file.write(';' + (str(passwordfield)))
+    file.write(';' + (str(passwordfield[0])))
+    file.write(';' + (str(passwordfield[1])))
     file.flush()
 
     print('Select login button')
     loginbutton = Select()
-    file.write(';' + (str(loginbutton)))
+    file.write(';' + (str(loginbutton[0])))
+    file.write(';' + (str(loginbutton[1])))
     file.flush()
 
-    
+
     Enter_Credentials()
 
 
