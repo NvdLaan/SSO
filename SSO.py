@@ -12,15 +12,12 @@ import webbrowser
 
 ### User configurable variables ###
 
-filename = 'pytest.db'
 # Filename in /tmp/ (MacOS & Linux) or c:\\temp\\ (Windows)
-usernamefield = (746, 135) # Respective GUI field location
-passwordfield = (930, 136) # Respective GUI field location
-loginbutton = (1104, 135) # Respective GUI button location
+filename = 'pytest.db'
 
 ### END User configurable variables ###
 
-version = '0.1.3' # Versioning to prevent file conflicts
+version = '0.3.2' # Versioning to prevent file conflicts
 
 def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
@@ -41,6 +38,7 @@ def Start():  # Compares the platform variable to the respected platform...
     # and returns the path+filename
     if pf == "linux":
         return '/tmp/' + filename
+
     elif pf == "darwin":
         return '/tmp/' + filename
     elif pf == "win32":
@@ -51,11 +49,23 @@ def Start():  # Compares the platform variable to the respected platform...
 
 filepath = Start()  # Creates filepath variable with output of  Start()
 
+def Select():
+    while True:
+        user_input = input("Press enter to select:")
+        if user_input == (''):
+            field = (pyautogui.position())
+            return field
+            break
+
+
 def Save_Credentials():  # Saves username + password + version in txt file
     file = open(filepath, "w+",)
-    file.write(version + ",")
+
+    file.write(version + ";")
+    file.flush()
+
     new_username = input("Enter Username: ")
-    file.write(new_username + ",")
+    file.write(new_username + ";")
     file.flush()
 
     pswd = getpass.getpass('Password:')
@@ -63,6 +73,27 @@ def Save_Credentials():  # Saves username + password + version in txt file
     new_password = base64.b64encode(pswd.encode())  # Encodes password
     file.write(new_password.decode('utf-8'))
     file.flush()
+
+    print('Place your pointer on the usernamefield:')
+    usernamefield = Select()
+
+    file.write(';' + (str(usernamefield[0])))
+    file.write(';' + (str(usernamefield[1])))
+    file.flush()
+
+    print('Place your pointer on the passwordfield:')
+    passwordfield = Select()
+    file.write(';' + (str(passwordfield[0])))
+    file.write(';' + (str(passwordfield[1])))
+    file.flush()
+
+    print('Place your pointer on the login button:')
+    loginbutton = Select()
+    file.write(';' + (str(loginbutton[0])))
+    file.write(';' + (str(loginbutton[1])))
+    file.flush()
+
+
     Enter_Credentials()
 
 #Open applicaties in chrome    
@@ -80,31 +111,51 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     with open(filepath) as credentials:  # open txt file with credentials
         for line in credentials:
 
-            username = (line.split(',')[1])  # grabs username from file
-            encoded = (line.split(',')[2])  # grabs encoded password from file
+            username = (line.split(';')[1])  # grabs username from file
+            encoded = (line.split(';')[2])  # grabs encoded password from file
             passwordRaw = base64.b64decode(encoded)  # Decodes password
             password = passwordRaw.decode("utf-8")
 
-    pyautogui.moveTo(usernamefield)  # Select username field, enter username
+            # get locations from database file
+            ufx = (line.split(';')[3])
+            ufy = (line.split(';')[4])
+            pfx = (line.split(';')[5])
+            pfy = (line.split(';')[6])
+            lbx = (line.split(';')[7])
+            lby = (line.split(';')[8])
+            # make them integers
+            usernamefieldx = int(ufx)
+            usernamefieldy = int(ufy)
+            passwordfieldx = int(pfx)
+            passwordfieldy = int(pfy)
+            loginbuttonx = int(lbx)
+            loginbuttony = int(lby)
+
+    pyautogui.moveTo(usernamefieldx,usernamefieldy)  # Select username field, enter username
     pyautogui.click()
     time.sleep(0.2)
     pyautogui.click()
     pyautogui.typewrite(username)
     time.sleep(0.5)
 
-    pyautogui.moveTo(passwordfield)  # Select username field, enter password
+    pyautogui.moveTo(passwordfieldx,passwordfieldy)  # Select username field, enter password
     pyautogui.click()
     pyautogui.typewrite(password)
     time.sleep(0.5)
 
+<<<<<<< HEAD
     pyautogui.moveTo(loginbutton)  # click login button
     #pyautogui.click()
+=======
+    pyautogui.moveTo(loginbuttonx,loginbuttony)  # click login button
+    pyautogui.click()
+>>>>>>> master
 
 
 def Version():
     with open(filepath) as credentials:  # open file with version
         for line in credentials:
-            return (line.split(',')[0])
+            return (line.split(';')[0])
 
 
 def Login(): # Perform various checks what to do
