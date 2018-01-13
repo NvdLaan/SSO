@@ -143,13 +143,8 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     pyautogui.typewrite(password)
     time.sleep(0.5)
 
-<<<<<<< HEAD
-    pyautogui.moveTo(loginbutton)  # click login button
-    #pyautogui.click()
-=======
     pyautogui.moveTo(loginbuttonx,loginbuttony)  # click login button
     pyautogui.click()
->>>>>>> master
 
 
 def Version():
