@@ -12,7 +12,7 @@ def Open_Google():
 def Open_Twitter():     
     subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.twitter.com/"])
 
-class MyFirstGUI:
+class SSO_App:
     def __init__(self, master):
         self.master = master
         master.title("SSO GUI")
@@ -33,7 +33,7 @@ class MyFirstGUI:
         self.close_button.pack()
 
     def Facebook(self):
-        Open_Facebook()
+        Login()
     def Google(self):
         Open_Google()
     def Twitter(self):
@@ -41,5 +41,5 @@ class MyFirstGUI:
 
 
 root = Tk()
-my_gui = MyFirstGUI(root)
+my_gui = SSO_App(root)
 root.mainloop()

@@ -4,6 +4,11 @@ import time
 import getpass
 import base64
 from sys import platform as _platform
+from tkinter import Tk, Label, Button
+import os
+import subprocess
+
+
 
 ### User configurable variables ###
 
@@ -60,8 +65,19 @@ def Save_Credentials():  # Saves username + password + version in txt file
     file.flush()
     Enter_Credentials()
 
+#Open applicaties in chrome    
+def Open_Facebook():     
+    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.facebook.com/"])
+def Open_Google():     
+    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.google.com/"])
+def Open_Twitter():     
+    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.twitter.com/"])
+
+
 
 def Enter_Credentials():  # enters credentials from txt files, logs in
+    Open_Facebook()
+    time.sleep(1)
     with open(filepath) as credentials:  # open txt file with credentials
         for line in credentials:
 
@@ -83,7 +99,7 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     time.sleep(0.5)
 
     pyautogui.moveTo(loginbutton)  # click login button
-    pyautogui.click()
+    #pyautogui.click()
 
 
 def Version():
@@ -113,6 +129,38 @@ def Login(): # Perform various checks what to do
                 Save_Credentials()
     else:  # else run Save_Credentials()
         Save_Credentials()
+       
+class SSO_App:
+    def __init__(self, master):
+        self.master = master
+        master.title("SSO GUI")
+        master.minsize(width=400, height=200)
+        self.label = Label(master, text="Alle apps")
+        self.label.pack()
+
+        self.greet_button = Button(master, text="Facebook", command=self.Facebook)
+        self.greet_button.pack()
+
+        self.greet_button = Button(master, text="Google", command=self.Google)
+        self.greet_button.pack()
+
+        self.greet_button = Button(master, text="Twitter", command=self.Twitter)
+        self.greet_button.pack()
+
+        self.close_button = Button(master, text="Close", command=master.quit)
+        self.close_button.pack()
+
+    def Facebook(self):
+        Login()
+    def Google(self):
+        Open_Google()
+    def Twitter(self):
+        Open_Twitter()
 
 
-Login()  # Run the Login() function
+root = Tk()
+my_gui = SSO_App(root)
+root.mainloop()
+
+
+# Login()  # Run the Login() function
