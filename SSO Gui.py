@@ -3,14 +3,14 @@ import time
 import pyautogui
 import os
 import subprocess
-
+import webbrowser
 
 def Open_Facebook():     
-    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.facebook.com/"])
+    webbrowser.open ("https://www.facebook.com/")
 def Open_Google():     
-    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.google.com/"])
+    webbrowser.open ("https://www.google.com/")
 def Open_Twitter():     
-    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.twitter.com/"])
+    webbrowser.open ("https://www.twitter.com/")
 
 class SSO_App:
     def __init__(self, master):
@@ -33,7 +33,7 @@ class SSO_App:
         self.close_button.pack()
 
     def Facebook(self):
-        Login()
+        Open_Facebook()
     def Google(self):
         Open_Google()
     def Twitter(self):

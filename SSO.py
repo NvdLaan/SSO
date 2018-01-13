@@ -7,7 +7,7 @@ from sys import platform as _platform
 from tkinter import Tk, Label, Button
 import os
 import subprocess
-
+import webbrowser
 
 
 ### User configurable variables ###
@@ -67,12 +67,11 @@ def Save_Credentials():  # Saves username + password + version in txt file
 
 #Open applicaties in chrome    
 def Open_Facebook():     
-    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.facebook.com/"])
+    webbrowser.open ("https://www.facebook.com/")
 def Open_Google():     
-    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.google.com/"])
+    webbrowser.open ("https://www.google.com/")
 def Open_Twitter():     
-    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.twitter.com/"])
-
+    webbrowser.open ("https://www.twitter.com/")
 
 
 def Enter_Credentials():  # enters credentials from txt files, logs in
