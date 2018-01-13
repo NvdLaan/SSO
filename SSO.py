@@ -12,7 +12,7 @@ filename = 'pytest.db'
 
 ### END User configurable variables ###
 
-version = '0.3.1' # Versioning to prevent file conflicts
+version = '0.3.2' # Versioning to prevent file conflicts
 
 def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
@@ -69,20 +69,20 @@ def Save_Credentials():  # Saves username + password + version in txt file
     file.write(new_password.decode('utf-8'))
     file.flush()
 
-    print('Select username field')
+    print('Place your pointer on the usernamefield:')
     usernamefield = Select()
 
     file.write(';' + (str(usernamefield[0])))
     file.write(';' + (str(usernamefield[1])))
     file.flush()
 
-    print('Select password field')
+    print('Place your pointer on the passwordfield:')
     passwordfield = Select()
     file.write(';' + (str(passwordfield[0])))
     file.write(';' + (str(passwordfield[1])))
     file.flush()
 
-    print('Select login button')
+    print('Place your pointer on the login button:')
     loginbutton = Select()
     file.write(';' + (str(loginbutton[0])))
     file.write(';' + (str(loginbutton[1])))
@@ -100,26 +100,35 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
             encoded = (line.split(';')[2])  # grabs encoded password from file
             passwordRaw = base64.b64decode(encoded)  # Decodes password
             password = passwordRaw.decode("utf-8")
-            usernamefieldx = (line.split(';')[3])
-            usernamefieldy = (line.split(';')[4])
-            passwordfieldx = (line.split(';')[5])
-            passwordfieldy = (line.split(';')[6])
-            loginbuttonx = (line.split(';')[7])
-            loginbuttony = (line.split(';')[8])
 
-    pyautogui.moveTo(int(usernamefieldx, usernamefieldy))  # Select username field, enter username
+            # get locations from database file
+            ufx = (line.split(';')[3])
+            ufy = (line.split(';')[4])
+            pfx = (line.split(';')[5])
+            pfy = (line.split(';')[6])
+            lbx = (line.split(';')[7])
+            lby = (line.split(';')[8])
+            # make them integers
+            usernamefieldx = int(ufx)
+            usernamefieldy = int(ufy)
+            passwordfieldx = int(pfx)
+            passwordfieldy = int(pfy)
+            loginbuttonx = int(lbx)
+            loginbuttony = int(lby)
+
+    pyautogui.moveTo(usernamefieldx,usernamefieldy)  # Select username field, enter username
     pyautogui.click()
     time.sleep(0.2)
     pyautogui.click()
     pyautogui.typewrite(username)
     time.sleep(0.5)
 
-    pyautogui.moveTo(int(passwordfieldx, passwordfieldy))  # Select username field, enter password
+    pyautogui.moveTo(passwordfieldx,passwordfieldy)  # Select username field, enter password
     pyautogui.click()
     pyautogui.typewrite(password)
     time.sleep(0.5)
 
-    pyautogui.moveTo(int(loginbuttonx, loginbuttony))  # click login button
+    pyautogui.moveTo(loginbuttonx,loginbuttony)  # click login button
     pyautogui.click()
 
 
