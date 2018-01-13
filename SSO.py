@@ -44,6 +44,15 @@ def Start():  # Compares the platform variable to the respected platform...
 
 filepath = Start()  # Creates filepath variable with output of  Start()
 
+def Select():
+    while True:
+        user_input = input("Press enter to select:")
+        if user_input == (''):
+            field = (pyautogui.position())
+            return field
+            break
+
+
 def Save_Credentials():  # Saves username + password + version in txt file
     file = open(filepath, "w+",)
 
@@ -60,19 +69,22 @@ def Save_Credentials():  # Saves username + password + version in txt file
     file.write(new_password.decode('utf-8'))
     file.flush()
 
-    usernamefield =
+    print('Select username field')
+    usernamefield = Select()
     file.write(';' + (str(usernamefield)))
     file.flush()
 
-    passwordfield =
+    print('Select password field')
+    passwordfield = Select()
     file.write(';' + (str(passwordfield)))
     file.flush()
 
-    loginbutton =
+    print('Select login button')
+    loginbutton = Select()
     file.write(';' + (str(loginbutton)))
     file.flush()
 
-    print(loginbutton)
+    
     Enter_Credentials()
 
 
