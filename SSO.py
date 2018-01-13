@@ -33,6 +33,7 @@ def Start():  # Compares the platform variable to the respected platform...
     # and returns the path+filename
     if pf == "linux":
         return '/tmp/' + filename
+
     elif pf == "darwin":
         return '/tmp/' + filename
     elif pf == "win32":
@@ -45,7 +46,10 @@ filepath = Start()  # Creates filepath variable with output of  Start()
 
 def Save_Credentials():  # Saves username + password + version in txt file
     file = open(filepath, "w+",)
+
     file.write(version + ";")
+    file.flush()
+
     new_username = input("Enter Username: ")
     file.write(new_username + ";")
     file.flush()
@@ -55,53 +59,19 @@ def Save_Credentials():  # Saves username + password + version in txt file
     new_password = base64.b64encode(pswd.encode())  # Encodes password
     file.write(new_password.decode('utf-8'))
     file.flush()
-    print('Now select the username field in 10 seconds')
-    #time.sleep(5)
-    print('5 Seconds')
-    time.sleep(1)
-    print('4 Seconds')
-    time.sleep(1)
-    print('3 Seconds')
-    time.sleep(1)
-    print('2 Seconds')
-    time.sleep(1)
-    print('1 Seconds')
-    time.sleep(1)
-    usernamefield = pyautogui.position()
+
+    usernamefield =
     file.write(';' + (str(usernamefield)))
     file.flush()
-    print(usernamefield)
-    print('Now select the password field in 10 seconds')
-    #time.sleep(5)
-    print('5 Seconds')
-    time.sleep(1)
-    print('4 Seconds')
-    time.sleep(1)
-    print('3 Seconds')
-    time.sleep(1)
-    print('2 Seconds')
-    time.sleep(1)
-    print('1 Seconds')
-    time.sleep(1)
-    passwordfield = pyautogui.position()
+
+    passwordfield =
     file.write(';' + (str(passwordfield)))
     file.flush()
-    print(passwordfield)
-    print('Now select the button in 10 seconds')
-    #time.sleep(5)
-    print('5 Seconds')
-    time.sleep(1)
-    print('4 Seconds')
-    time.sleep(1)
-    print('3 Seconds')
-    time.sleep(1)
-    print('2 Seconds')
-    time.sleep(1)
-    print('1 Seconds')
-    time.sleep(1)
-    loginbutton = pyautogui.position()
+
+    loginbutton =
     file.write(';' + (str(loginbutton)))
     file.flush()
+
     print(loginbutton)
     Enter_Credentials()
 
@@ -164,14 +134,3 @@ def Login(): # Perform various checks what to do
 
 
 Login()  # Run the Login() function
-"""
-with open(filepath) as credentials:  # open file with version
-    for line in credentials:
-
-        print(line.split(';')[0])
-        print(line.split(';')[1])
-        print(line.split(';')[2])
-        print(line.split(';')[3])
-        print(line.split(';')[4])
-        print(line.split(';')[5])
-"""
