@@ -100,23 +100,26 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
             encoded = (line.split(';')[2])  # grabs encoded password from file
             passwordRaw = base64.b64decode(encoded)  # Decodes password
             password = passwordRaw.decode("utf-8")
-            usernamefield = (line.split(';')[3])
-            passwordfield = (line.split(';')[4])
-            loginbutton = (line.split(';')[5])
+            usernamefieldx = (line.split(';')[3])
+            usernamefieldy = (line.split(';')[4])
+            passwordfieldx = (line.split(';')[5])
+            passwordfieldy = (line.split(';')[6])
+            loginbuttonx = (line.split(';')[7])
+            loginbuttony = (line.split(';')[8])
 
-    pyautogui.moveTo(usernamefield)  # Select username field, enter username
+    pyautogui.moveTo(int(usernamefieldx, usernamefieldy))  # Select username field, enter username
     pyautogui.click()
     time.sleep(0.2)
     pyautogui.click()
     pyautogui.typewrite(username)
     time.sleep(0.5)
 
-    pyautogui.moveTo(passwordfield)  # Select username field, enter password
+    pyautogui.moveTo(int(passwordfieldx, passwordfieldy))  # Select username field, enter password
     pyautogui.click()
     pyautogui.typewrite(password)
     time.sleep(0.5)
 
-    pyautogui.moveTo(loginbutton)  # click login button
+    pyautogui.moveTo(int(loginbuttonx, loginbuttony))  # click login button
     pyautogui.click()
 
 
