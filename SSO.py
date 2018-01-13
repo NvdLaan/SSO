@@ -56,7 +56,7 @@ def Save_Credentials():  # Saves username + password + version in txt file
     file.write(new_password.decode('utf-8'))
     file.flush()
     print('Now select the username field in 10 seconds')
-    time.sleep(5)
+    #time.sleep(5)
     print('5 Seconds')
     time.sleep(1)
     print('4 Seconds')
@@ -72,7 +72,7 @@ def Save_Credentials():  # Saves username + password + version in txt file
     file.flush()
     print(usernamefield)
     print('Now select the password field in 10 seconds')
-    time.sleep(5)
+    #time.sleep(5)
     print('5 Seconds')
     time.sleep(1)
     print('4 Seconds')
@@ -88,7 +88,7 @@ def Save_Credentials():  # Saves username + password + version in txt file
     file.flush()
     print(passwordfield)
     print('Now select the button in 10 seconds')
-    time.sleep(5)
+    #time.sleep(5)
     print('5 Seconds')
     time.sleep(1)
     print('4 Seconds')
@@ -114,23 +114,23 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
             encoded = (line.split(';')[2])  # grabs encoded password from file
             passwordRaw = base64.b64decode(encoded)  # Decodes password
             password = passwordRaw.decode("utf-8")
-            readusernamefield = (line.split(';')[3])
-            readpasswordfield = (line.split(';')[4])
-            readloginbutton = (line.split(';')[5])
+            usernamefield = (line.split(';')[3])
+            passwordfield = (line.split(';')[4])
+            loginbutton = (line.split(';')[5])
 
-    pyautogui.moveTo(readusernamefield)  # Select username field, enter username
+    pyautogui.moveTo(usernamefield)  # Select username field, enter username
     pyautogui.click()
     time.sleep(0.2)
     pyautogui.click()
     pyautogui.typewrite(username)
     time.sleep(0.5)
 
-    pyautogui.moveTo(readpasswordfield)  # Select username field, enter password
+    pyautogui.moveTo(passwordfield)  # Select username field, enter password
     pyautogui.click()
     pyautogui.typewrite(password)
     time.sleep(0.5)
 
-    pyautogui.moveTo(readloginbutton)  # click login button
+    pyautogui.moveTo(loginbutton)  # click login button
     pyautogui.click()
 
 
