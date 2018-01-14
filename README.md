@@ -1,4 +1,5 @@
 # Single Sign On
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1555/badge)](https://bestpractices.coreinfrastructure.org/projects/1555)
 
 A killer Python script to practice our skillz and burn our free time 🙃
 Currently used for signing into ~~facebook.com~~ any form
