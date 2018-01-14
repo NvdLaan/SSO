@@ -1,16 +1,29 @@
-from tkinter import Tk, Label, Button
-import time
+import os
 import pyautogui
+import time
+import getpass
+import base64
+from sys import platform as _platform
+from tkinter import Tk, Label, Button
 import os
 import subprocess
 import webbrowser
 
-def Open_Facebook():     
-    webbrowser.open ("https://www.facebook.com/")
-def Open_Google():     
-    webbrowser.open ("https://www.google.com/")
-def Open_Twitter():     
-    webbrowser.open ("https://www.twitter.com/")
+file = 'c:\\temp\\applications.txt'
+
+
+def create_file():
+    file = open(filepath, "w+",)
+    file.write("")
+    file.flush()
+
+def Save_Application():  # Saves username + password + version in txt file
+    filepath = open(file,'a+')
+    new_app = input("Voer applicatie naam in: ")
+    filepath.write(new_app + "\n")
+    filepath.flush()
+    print("Nieuwe app is toegevoegd! Herstart om de nieuwe applicatie te gebruiken.")
+   
 
 class SSO_App:
     def __init__(self, master):
@@ -20,26 +33,24 @@ class SSO_App:
         self.label = Label(master, text="Alle apps")
         self.label.pack()
 
-        self.greet_button = Button(master, text="Facebook", command=self.Facebook)
+        
+        self.greet_button = Button(master, text="New application", command=self.New_App)
         self.greet_button.pack()
 
-        self.greet_button = Button(master, text="Google", command=self.Google)
-        self.greet_button.pack()
-
-        self.greet_button = Button(master, text="Twitter", command=self.Twitter)
-        self.greet_button.pack()
-
+        with open(file) as apps:
+           for app in apps:
+               self.greet_button = Button(master, text= app, command=lambda app = app:self.Run(app))
+               self.greet_button.pack()
         self.close_button = Button(master, text="Close", command=master.quit)
         self.close_button.pack()
-
-    def Facebook(self):
-        Open_Facebook()
-    def Google(self):
-        Open_Google()
-    def Twitter(self):
-        Open_Twitter()
-
+               
+    def Run(self, app):
+        print ("SSO script voor de app", app)
+        
+    def New_App(self):
+        Save_Application()
+       
 
 root = Tk()
-my_gui = SSO_App(root)
+SSO_App(root)
 root.mainloop()

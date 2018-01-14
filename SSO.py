@@ -31,14 +31,13 @@ def Detect():  # Detect the platform
     else:
         print('Error: Platform unknown')
 
-
+    
 pf = Detect()  # Creates variable with output of Detect()
 
 def Start():  # Compares the platform variable to the respected platform...
     # and returns the path+filename
     if pf == "linux":
         return '/tmp/' + filename
-
     elif pf == "darwin":
         return '/tmp/' + filename
     elif pf == "win32":
@@ -132,16 +131,15 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
             loginbuttony = int(lby)
 
     pyautogui.moveTo(usernamefieldx,usernamefieldy)  # Select username field, enter username
-    pyautogui.click()
-    time.sleep(0.2)
+    pyautogui.click(clicks=3)
     pyautogui.click()
     pyautogui.typewrite(username)
-    time.sleep(0.5)
+    
 
     pyautogui.moveTo(passwordfieldx,passwordfieldy)  # Select username field, enter password
-    pyautogui.click()
+    pyautogui.click(clicks=3)
     pyautogui.typewrite(password)
-    time.sleep(0.5)
+    
 
     pyautogui.moveTo(loginbuttonx,loginbuttony)  # click login button
     pyautogui.click()
@@ -204,7 +202,7 @@ class SSO_App:
 
 
 root = Tk()
-my_gui = SSO_App(root)
+SSO_App(root)
 root.mainloop()
 
 
