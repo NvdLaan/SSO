@@ -28,20 +28,14 @@ def Detect():  # Detect the platform
 pf = Detect()  # Creates variable with output of Detect()
 
 def Pathgen():
-    if pf == "linux":
+    if pf == "linux" or pf == "darwin":
         return '/tmp/SSO/'
-    elif pf == "darwin":
-        return '/tmp/SSO/'
-    elif pf == "win32":
+    elif pf == "win32" or pf == "win64":
         return 'c:\\temp\\SSO\\'
-    elif pf == "win64":
-        return 'c:\\temp\\SSO\\'
+
 
 app_path = Pathgen()
 file = app_path + 'applications.txt'  #Lijst met applicaties
-
-#file = '/Users/oscar/Github/SSO/applications.txt'  #Lijst met applicaties
-#app_path = '/Users/oscar/Github/SSO/' #path waar applicaties en config bestanden staan
 
 def Select():   # selects field and returns mouse location
     while True:
@@ -59,7 +53,8 @@ def New_Application():
     new_file.write(new_app_name + "\n")                  #appnaam wordt in bestandje geschreven
     new_file.write(input("Enter URL: https://")+ "\n")    #URL wordt in bestandje weggeschreven
     new_file.write(input("Enter Username: ")+ "\n")         #username
-    new_file.write(input("Enter Password: ")+ "\n")         #password
+    new_file.write(getpass.getpass('Enter Password:')+ "\n")
+    #pswd = getpass.getpass('Password:')       #password
     new_file.flush()
 
     new_file = open(new_app_file,"r+",)
@@ -132,15 +127,15 @@ class SSO_App:
 
             # open webbrowser etc..
             webbrowser.open("https://" + app_url)
-            time.sleep(10)
+            time.sleep(3) #slakken stand
 
             pyautogui.moveTo(app_username_fieldx, app_username_fieldy)  # Select username field, enter username
-            pyautogui.click()
+            pyautogui.click(clicks=3)
             pyautogui.typewrite(app_username)
 
-            #clicks=3
+
             pyautogui.moveTo(app_password_fieldx, app_password_fieldy)  # Select username field, enter password
-            pyautogui.click()
+            pyautogui.click(clicks=3)
             pyautogui.typewrite(app_password)
 
 
