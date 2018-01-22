@@ -11,7 +11,11 @@ import sys
 from tkinter import Tk, Label, Button
 import subprocess
 import webbrowser
+import shutil
 
+version = '0.4.0'  # Versioning to prevent file conflicts
+index_file = 'index.txt'  # was applications.txt
+version_file = 'version.txt'
 
 def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
@@ -35,7 +39,8 @@ def Pathgen():
 
 
 app_path = Pathgen()
-file = app_path + 'applications.txt'  #Lijst met applicaties
+path = app_path + index_file  # Lijst met applicaties
+vpath = app_path + version_file  # version file plus path
 
 def Select():   # selects field and returns mouse location
     while True:
@@ -82,24 +87,62 @@ def New_Application():
     new_file.write((str(loginbutton[1]))+"\n" )
     new_file.flush()
 
-    new_file = open(file, "a")             # Nieuwe app wordt in applications.txt gezet zodat deze dichtbaar wordt in het menu.
+    new_file = open(path, "a")             # Nieuwe app wordt in index.txt gezet zodat deze dichtbaar wordt in het menu.
     new_file.write (new_app_name + "\n")
-    print("De nieuwe applicatie is toegevoegd! Herstart om de applicatie te kunnen gebruiken.") #herstart knop komt nog denk ik
+    print("De nieuwe applicatie is toegevoegd!") #herstart knop komt nog denk ik
+    print("Herstart om de applicatie te kunnen gebruiken.")
+    input("Press Enter to exit...")
+    exit(1)
+
+
+def Version():
+    with open(vpath) as version_file:  # retrieve version from file
+        for line in version_file:
+            return (line)
+
+#hier maken we alle bestanden die nodig zijn plus versie check
+def Setup(): # Perform various checks what to do
+    if not os.path.exists(app_path):
+        os.makedirs(app_path)
+    if not os.path.isfile(path):
+        open(path,"a+",)
+    if not os.path.isfile(vpath):
+        file = open(vpath, "w+",)
+        file.write(version)
+        file.flush()
+    if not version == (Version()):
+        # If version is incorrect prompt for user action
+        CRED = '\033[91m'
+        CEND = '\033[0m'
+        print(CRED + 'Version is different!!' + CEND)
+        print(CRED + 'Do you want to delete the storage folder and than exit?' + CEND)
+        print(CRED + 'Be VERY sure!!!' + CEND)
+        print(CRED + 'I will seriously delete: ' + app_path + CEND)
+        answer = input('Please indicate approval: [y/n]')
+        if not answer or answer[0].lower() != 'y':
+            print(CRED + 'You did not indicate approval' + CEND)
+            print('Nothing is touched' + CEND)
+            exit(1)
+        print(CRED + 'Deleting storage folder and exiting...' + CEND)
+        shutil.rmtree(app_path)
+        exit(1)
+
+
+Setup()
 
 class SSO_App:
     def __init__(self, master):
         self.master = master
         master.title("SSO GUI")
         master.minsize(width=400, height=200)
-        self.label = Label(master, text="Alle apps")
+        self.label = Label(master, text="All apps")
         self.label.pack()
-
 
         self.greet_button = Button(master, text="New application", command=self.New_App) # Nieuwe applicatie knop
         self.greet_button.pack()
 
-        with open(file) as apps:
-           for app in apps:        #loopt door applications.txt, maakt knop van elke applicatie in de lijst
+        with open(path) as apps:
+           for app in apps:        #loopt door index.txt, maakt knop van elke applicatie in de lijst
                app=app.strip("\n")
                self.greet_button = Button(master, text= app, command=lambda app = app:self.Run(app)) #opent de applicatie knop, geeft app name als variable(app) mee
                self.greet_button.pack()
