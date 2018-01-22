@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# # -*- coding: utf-8 -*-
+
 import os
 import pyautogui
 import time
@@ -31,7 +34,7 @@ def Detect():  # Detect the platform
     else:
         print('Error: Platform unknown')
 
-    
+
 pf = Detect()  # Creates variable with output of Detect()
 
 def Start():  # Compares the platform variable to the respected platform...
@@ -95,12 +98,12 @@ def Save_Credentials():  # Saves username + password + version in txt file
 
     Enter_Credentials()
 
-#Open applicaties in chrome    
-def Open_Facebook():     
+#Open applicaties in chrome
+def Open_Facebook():
     webbrowser.open ("https://www.facebook.com/")
-def Open_Google():     
+def Open_Google():
     webbrowser.open ("https://www.google.com/")
-def Open_Twitter():     
+def Open_Twitter():
     webbrowser.open ("https://www.twitter.com/")
 
 
@@ -134,12 +137,12 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
     pyautogui.click(clicks=3)
     pyautogui.click()
     pyautogui.typewrite(username)
-    
+
 
     pyautogui.moveTo(passwordfieldx,passwordfieldy)  # Select username field, enter password
     pyautogui.click(clicks=3)
     pyautogui.typewrite(password)
-    
+
 
     pyautogui.moveTo(loginbuttonx,loginbuttony)  # click login button
     pyautogui.click()
@@ -172,7 +175,7 @@ def Login(): # Perform various checks what to do
                 Save_Credentials()
     else:  # else run Save_Credentials()
         Save_Credentials()
-       
+
 class SSO_App:
     def __init__(self, master):
         self.master = master
