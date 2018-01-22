@@ -53,7 +53,9 @@ def New_Application():
     new_file.write(new_app_name + "\n")                  #appnaam wordt in bestandje geschreven
     new_file.write(input("Enter URL: https://")+ "\n")    #URL wordt in bestandje weggeschreven
     new_file.write(input("Enter Username: ")+ "\n")         #username
-    new_file.write(getpass.getpass('Enter Password:')+ "\n")
+    pswd = getpass.getpass('Enter Password:')
+    new_password = base64.b64encode(pswd.encode())
+    new_file.write(new_password.decode('utf-8') + "\n")
     #pswd = getpass.getpass('Password:')       #password
     new_file.flush()
 
@@ -116,7 +118,9 @@ class SSO_App:
             app_name = credentials_list[0]
             app_url = credentials_list[1]
             app_username = credentials_list[2]
-            app_password = credentials_list[3]
+            encoded = credentials_list[3]
+            app_passwordRaw = base64.b64decode(encoded)
+            app_password = app_passwordRaw.decode("utf-8")
             #zet coordinaten in variabeles, maakt er integers van.
             app_username_fieldx = int(credentials_list[4])
             app_username_fieldy = int(credentials_list[5])
@@ -130,13 +134,16 @@ class SSO_App:
             time.sleep(3) #slakken stand
 
             pyautogui.moveTo(app_username_fieldx, app_username_fieldy)  # Select username field, enter username
+            time.sleep(0.5)
             pyautogui.click(clicks=3)
             pyautogui.typewrite(app_username)
 
 
             pyautogui.moveTo(app_password_fieldx, app_password_fieldy)  # Select username field, enter password
+            time.sleep(0.5)
             pyautogui.click(clicks=3)
-            pyautogui.typewrite(app_password)
+
+            pyautogui.typewrite(str(app_password))
 
 
             pyautogui.moveTo(app_login_buttonx, app_login_buttony)  # click login button
