@@ -90,8 +90,8 @@ def New_Application():
     new_file = open(path, "a")             # Nieuwe app wordt in index.txt gezet zodat deze dichtbaar wordt in het menu.
     new_file.write (new_app_name + "\n")
     print("De nieuwe applicatie is toegevoegd!") #herstart knop komt nog denk ik
-    print("Herstart om de applicatie te kunnen gebruiken.")
-    exit(1)
+    print("Applicatie word herstart...")
+    os.execv(__file__, sys.argv)  # herstart de applicatie
 
 
 def Version():
