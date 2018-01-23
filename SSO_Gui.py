@@ -122,9 +122,9 @@ def Setup(): # Perform various checks what to do
             print(CRED + 'You did not indicate approval' + CEND)
             print('Nothing is touched' + CEND)
             exit(1)
-        print(CRED + 'Deleting storage folder and exiting...' + CEND)
+        print(CRED + 'Deleting storage folder and restarting...' + CEND)
         shutil.rmtree(app_path)
-        exit(1)
+        os.execv(__file__, sys.argv)  # herstart de applicatie
 
 
 Setup()
