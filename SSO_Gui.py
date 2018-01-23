@@ -110,9 +110,9 @@ def Setup(): # Perform various checks what to do
         file.write(version)
         file.flush()
     if not version == (Version()):
-        # If version is incorrect prompt for user action
-        CRED = '\033[91m'
-        CEND = '\033[0m'
+        # If version is not equal: prompt for user action
+        CRED = '\033[91m'  # fancy colors; color red
+        CEND = '\033[0m'  # fancy colors; color end
         print(CRED + 'Version is different!!' + CEND)
         print(CRED + 'Do you want to delete the storage folder and than exit?' + CEND)
         print(CRED + 'Be VERY sure!!!' + CEND)
