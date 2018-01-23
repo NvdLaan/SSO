@@ -66,7 +66,7 @@ def New_Application():
 
     new_file = open(new_app_file,"r+",)
     new_app_url = new_file.readlines()[1]
-    new_app_url = new_app_url.strip("\n") #removes \n(whitespace) from txt
+    new_app_url = new_app_url.strip("\n") #removes \n(return) from txt
     webbrowser.open("https://" + new_app_url)    #opent ingevoerde url, "https://" heb ik ervoor gezet omdat windows IE opent zonder.
 
     print('Place your pointer on the usernamefield:')
@@ -91,7 +91,6 @@ def New_Application():
     new_file.write (new_app_name + "\n")
     print("De nieuwe applicatie is toegevoegd!") #herstart knop komt nog denk ik
     print("Herstart om de applicatie te kunnen gebruiken.")
-    input("Press Enter to exit...")
     exit(1)
 
 
@@ -150,7 +149,7 @@ class SSO_App:
         self.close_button.pack()
 
     def Run(self, app):
-        app= app.strip("\n") #removes \n(whitespace) from txt
+        app= app.strip("\n") #removes \n(return) from txt
         with open(app_path + app + ".txt") as credentials:  # open txt file with credentials + settings
             credentials_list = []
             for line in credentials:
@@ -174,7 +173,7 @@ class SSO_App:
 
             # open webbrowser etc..
             webbrowser.open("https://" + app_url)
-            time.sleep(3) #slakken stand
+            time.sleep(3)  #slakken stand
 
             pyautogui.moveTo(app_username_fieldx, app_username_fieldy)  # Select username field, enter username
             time.sleep(0.5)
