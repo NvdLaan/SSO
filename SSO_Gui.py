@@ -194,44 +194,42 @@ class SSO_App:
             pyautogui.click()
 
     def New_App(self):
-        win = tk.Toplevel()
-        win.wm_title("New application")
+        top = tk.Toplevel()
+        top.wm_title("New application")
 
-        name1 = tk.Label(win, text="Name:")
+        name1 = tk.Label(top, text="Name:")
         name1.grid(row=0, column=0)
 
-        name2 = tk.Entry(win,)
+        name2 = tk.Entry(top,)
         name2.grid(row=0, column=1)
 
-        url1 = tk.Label(win, text="URL:")
+        url1 = tk.Label(top, text="URL:")
         url1.grid(row=1, column=0)
 
-        uname2 = tk.Entry(win,)
+        uname2 = tk.Entry(top,)
         uname2.grid(row=1, column=1)
 
-        uname1 = tk.Label(win, text="Username:")
+        uname1 = tk.Label(top, text="Username:")
         uname1.grid(row=2, column=0)
 
-        uname2 = tk.Entry(win,)
+        uname2 = tk.Entry(top,)
         uname2.grid(row=2, column=1)
 
-        pass1 = tk.Label(win, text="Password:")
+        pass1 = tk.Label(top, text="Password:")
         pass1.grid(row=3, column=0)
 
-        pass2 = tk.Entry(win, show='*')
+        pass2 = tk.Entry(top, show='*')
         pass2.grid(row=3, column=1)
 
-        butt1 = tk.Button(win, text="Done!", command=win.destroy)
+        butt1 = tk.Button(top, text="Done!", command=top.destroy)
         butt1.grid(row=4, column=0)
 
-        butt2 = tk.Button(win, text="Cancel", command=win.quit)
+        butt2 = tk.Button(top, text="Cancel", command=top.quit)
         butt2.grid(row=4, column=1)
 
 
 #    def New_App(self):
 #        New_Application()
-
-
 
 
 root = Tk()
