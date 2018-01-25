@@ -15,12 +15,14 @@ def new_app():
 
     name2 = tk.Entry(top,)
     name2.grid(row=0, column=1)
+    name2.insert(0, "Facebook")
 
     url1 = tk.Label(top, text="URL:")
     url1.grid(row=1, column=0)
 
     uname2 = tk.Entry(top,)
     uname2.grid(row=1, column=1)
+    uname = uname2.get()
 
     uname1 = tk.Label(top, text="Username:")
     uname1.grid(row=2, column=0)

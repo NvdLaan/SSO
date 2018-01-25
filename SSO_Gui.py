@@ -54,7 +54,7 @@ def Select():   # selects field and returns mouse location
 """
 def New_Application():
     new_app_name = input("Voer applicatie naam in: ") # App name
-    new_app_file = app_path + new_app_name + ".txt"   # config bestandje nieuwe app wordt aangemaakt
+    new_app_file = app_path + new_app_name + ".txt"
     new_file = open(new_app_file,"a+",)
     new_file.write(new_app_name + "\n")                  #appnaam wordt in bestandje geschreven
     new_file.write(input("Enter URL: https://")+ "\n")    #URL wordt in bestandje weggeschreven
@@ -206,14 +206,15 @@ class SSO_App:
         url1 = tk.Label(top, text="URL:")
         url1.grid(row=1, column=0)
 
-        uname2 = tk.Entry(top,)
-        uname2.grid(row=1, column=1)
+        url2 = tk.Entry(top,)
+        url2.grid(row=1, column=1)
 
         uname1 = tk.Label(top, text="Username:")
         uname1.grid(row=2, column=0)
 
         uname2 = tk.Entry(top,)
         uname2.grid(row=2, column=1)
+        uname = uname2.get()
 
         pass1 = tk.Label(top, text="Password:")
         pass1.grid(row=3, column=0)
