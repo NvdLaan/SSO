@@ -13,6 +13,7 @@ from tkinter import Tk, Label, Button, messagebox
 import subprocess
 import webbrowser
 import shutil
+import validators
 
 version = '0.4.0'  # Versioning to prevent file conflicts
 index_file = 'index.txt'  # was applications.txt
@@ -58,13 +59,19 @@ def New_Application():
     new_app_name = input_name.get() # App name
     new_app_file = app_path + new_app_name + ".txt"
     new_file = open(new_app_file,"a+",)
-    new_file.write(new_app_name + "\n")                  #appnaam wordt in bestandje geschreven
-    new_file.write(input_url.get() + "\n")      #URL wordt in bestandje weggeschreven
-    new_file.write(input_username.get() + "\n")         #username
+    new_file.write(new_app_name + "\n")  # appnaam wordt in bestandje geschreven
+    url = input_url.get()
+    if validators.url(url):
+        print("Valid URL")
+        new_file.write(input_url.get() + "\n")  # URL wordt in bestandje weggeschreven
+    else:
+        tk.messagebox.showinfo("Error", "URL is niet correct....")
+        exit(1)
+    new_file.write(input_username.get() + "\n")  # username
     pswd = input_pass.get()
     new_password = base64.b64encode(pswd.encode())
     new_file.write(new_password.decode('utf-8') + "\n")
-    #pswd = getpass.getpass('Password:')       #password
+    #pswd = getpass.getpass('Password:')  # password
     new_file.flush()
 
     new_file = open(new_app_file,"r+",)
