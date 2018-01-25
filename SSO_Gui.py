@@ -18,6 +18,8 @@ version = '0.4.0'  # Versioning to prevent file conflicts
 index_file = 'index.txt'  # was applications.txt
 version_file = 'version.txt'
 
+
+
 def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
         return 'linux'  # linux
@@ -51,15 +53,15 @@ def Select():   # selects field and returns mouse location
             return field
             break
 
-"""
+
 def New_Application():
-    new_app_name = input("Voer applicatie naam in: ") # App name
+    new_app_name = input_name.get() # App name
     new_app_file = app_path + new_app_name + ".txt"
     new_file = open(new_app_file,"a+",)
     new_file.write(new_app_name + "\n")                  #appnaam wordt in bestandje geschreven
-    new_file.write(input("Enter URL: https://")+ "\n")    #URL wordt in bestandje weggeschreven
-    new_file.write(input("Enter Username: ")+ "\n")         #username
-    pswd = getpass.getpass('Enter Password:')
+    new_file.write(input_url.get() + "\n")      #URL wordt in bestandje weggeschreven
+    new_file.write(input_username.get() + "\n")         #username
+    pswd = input_pass.get()
     new_password = base64.b64encode(pswd.encode())
     new_file.write(new_password.decode('utf-8') + "\n")
     #pswd = getpass.getpass('Password:')       #password
@@ -68,7 +70,7 @@ def New_Application():
     new_file = open(new_app_file,"r+",)
     new_app_url = new_file.readlines()[1]
     new_app_url = new_app_url.strip("\n") #removes \n(return) from txt
-    webbrowser.open("https://" + new_app_url)    #opent ingevoerde url, "https://" heb ik ervoor gezet omdat windows IE opent zonder.
+    webbrowser.open(new_app_url)    #opent ingevoerde url, "https://" heb ik ervoor gezet omdat windows IE opent zonder.
 
     print('Place your pointer on the usernamefield:')
     new_file = open(new_app_file,"a",)
@@ -93,7 +95,7 @@ def New_Application():
     print("De nieuwe applicatie is toegevoegd!") #herstart knop komt nog denk ik
     print("Applicatie word herstart...")
     os.execv(__file__, sys.argv)  # herstart de applicatie
-"""
+
 
 def Version():
     with open(vpath) as version_file:  # retrieve version from file
@@ -130,8 +132,7 @@ def Setup(): # Perform various checks what to do
 
 Setup()
 
-def callback():
-    print (name2.get())
+
 
 class SSO_App:
     def __init__(self, master):
@@ -177,7 +178,7 @@ class SSO_App:
             app_login_buttony = int(credentials_list[9])
 
             # open webbrowser etc..
-            webbrowser.open("https://" + app_url)
+            webbrowser.open(app_url)
             time.sleep(3)  #slakken stand
 
             pyautogui.moveTo(app_username_fieldx, app_username_fieldy)  # Select username field, enter username
@@ -199,36 +200,42 @@ class SSO_App:
 
     def New_App(self):
 
+
+        global input_name
+        global input_url
+        global input_username
+        global input_pass
+
         top = tk.Toplevel()
         top.wm_title("New application")
 
         name1 = tk.Label(top, text="Name:")
         name1.grid(row=0, column=0)
 
-        name2 = tk.Entry(top, textvariable=name0)
-        name2.grid(row=0, column=1)
+        input_name = tk.Entry(top)
+        input_name.grid(row=0, column=1)
 
         url1 = tk.Label(top, text="URL:")
         url1.grid(row=1, column=0)
 
-        url2 = tk.Entry(top, textvariable=url0)
-        url2.grid(row=1, column=1)
-        url2.insert(0, "https://")
+        input_url = tk.Entry(top)
+        input_url.grid(row=1, column=1)
+        input_url.insert(0, "https://")
 
         uname1 = tk.Label(top, text="Username:")
         uname1.grid(row=2, column=0)
 
-        uname2 = tk.Entry(top, textvariable=uname0)
-        uname2.grid(row=2, column=1)
+        input_username = tk.Entry(top)
+        input_username.grid(row=2, column=1)
 
         pass1 = tk.Label(top, text="Password:")
         pass1.grid(row=3, column=0)
 
-        pass2 = tk.Entry(top, show='*',textvariable=pass0)
-        pass2.grid(row=3, column=1)
+        input_pass = tk.Entry(top, show='*')
+        input_pass.grid(row=3, column=1)
 
-<<<<<<< HEAD
-        butt1 = tk.Button(top, text="Save", command=top.destroy)
+
+        butt1 = tk.Button(top, text="Save", command=New_Application)
         butt1.grid(row=4, column=0)
 
         butt2 = tk.Button(top, text="Cancel", command=top.quit)
