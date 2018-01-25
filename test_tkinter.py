@@ -33,3 +33,4 @@ entry = Entry(parent, text=caption, textvariable=content)
 
 text = content.get()
 content.set(text)
+print e.get()

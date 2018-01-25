@@ -200,29 +200,29 @@ class SSO_App:
         name1 = tk.Label(top, text="Name:")
         name1.grid(row=0, column=0)
 
-        name2 = tk.Entry(top,)
+        name2 = tk.Entry(top, textvariable=name0)
         name2.grid(row=0, column=1)
 
         url1 = tk.Label(top, text="URL:")
         url1.grid(row=1, column=0)
 
-        url2 = tk.Entry(top,)
+        url2 = tk.Entry(top, textvariable=url0)
         url2.grid(row=1, column=1)
+        url2.insert(0, "https://")
 
         uname1 = tk.Label(top, text="Username:")
         uname1.grid(row=2, column=0)
 
-        uname2 = tk.Entry(top,)
+        uname2 = tk.Entry(top, textvariable=uname0)
         uname2.grid(row=2, column=1)
-        uname = uname2.get()
 
         pass1 = tk.Label(top, text="Password:")
         pass1.grid(row=3, column=0)
 
-        pass2 = tk.Entry(top, show='*')
+        pass2 = tk.Entry(top, show='*',textvariable=pass0)
         pass2.grid(row=3, column=1)
 
-        butt1 = tk.Button(top, text="Done!", command=top.destroy)
+        butt1 = tk.Button(top, text="Save", command=top.destroy)
         butt1.grid(row=4, column=0)
 
         butt2 = tk.Button(top, text="Cancel", command=top.quit)
