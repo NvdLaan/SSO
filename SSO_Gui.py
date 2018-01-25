@@ -8,7 +8,8 @@ import getpass
 import base64
 from sys import platform as _platform
 import sys
-from tkinter import Tk, Label, Button
+import tkinter as tk
+from tkinter import Tk, Label, Button, messagebox
 import subprocess
 import webbrowser
 import shutil
@@ -50,7 +51,7 @@ def Select():   # selects field and returns mouse location
             return field
             break
 
-
+"""
 def New_Application():
     new_app_name = input("Voer applicatie naam in: ") # App name
     new_app_file = app_path + new_app_name + ".txt"   # config bestandje nieuwe app wordt aangemaakt
@@ -92,7 +93,7 @@ def New_Application():
     print("De nieuwe applicatie is toegevoegd!") #herstart knop komt nog denk ik
     print("Applicatie word herstart...")
     os.execv(__file__, sys.argv)  # herstart de applicatie
-
+"""
 
 def Version():
     with open(vpath) as version_file:  # retrieve version from file
@@ -134,19 +135,20 @@ class SSO_App:
         self.master = master
         master.title("SSO GUI")
         master.minsize(width=400, height=200)
-        self.label = Label(master, text="All apps")
-        self.label.pack()
 
         self.greet_button = Button(master, text="New application", command=self.New_App) # Nieuwe applicatie knop
         self.greet_button.pack()
+
+        self.label = Label(master, text="All apps:")
+        self.label.pack()
 
         with open(path) as apps:
            for app in apps:        #loopt door index.txt, maakt knop van elke applicatie in de lijst
                app=app.strip("\n")
                self.greet_button = Button(master, text= app, command=lambda app = app:self.Run(app)) #opent de applicatie knop, geeft app name als variable(app) mee
                self.greet_button.pack()
-        self.close_button = Button(master, text="Close", command=master.quit)
-        self.close_button.pack()
+        #self.close_button = Button(master, text="Close", command=master.quit)
+        #self.close_button.pack()
 
     def Run(self, app):
         app= app.strip("\n") #removes \n(return) from txt
@@ -191,10 +193,45 @@ class SSO_App:
             pyautogui.moveTo(app_login_buttonx, app_login_buttony)  # click login button
             pyautogui.click()
 
-
-
     def New_App(self):
-        New_Application()
+        win = tk.Toplevel()
+        win.wm_title("New application")
+
+        name1 = tk.Label(win, text="Name:")
+        name1.grid(row=0, column=0)
+
+        name2 = tk.Entry(win,)
+        name2.grid(row=0, column=1)
+
+        url1 = tk.Label(win, text="URL:")
+        url1.grid(row=1, column=0)
+
+        uname2 = tk.Entry(win,)
+        uname2.grid(row=1, column=1)
+
+        uname1 = tk.Label(win, text="Username:")
+        uname1.grid(row=2, column=0)
+
+        uname2 = tk.Entry(win,)
+        uname2.grid(row=2, column=1)
+
+        pass1 = tk.Label(win, text="Password:")
+        pass1.grid(row=3, column=0)
+
+        pass2 = tk.Entry(win, show='*')
+        pass2.grid(row=3, column=1)
+
+        butt1 = tk.Button(win, text="Done!", command=win.destroy)
+        butt1.grid(row=4, column=0)
+
+        butt2 = tk.Button(win, text="Cancel", command=win.quit)
+        butt2.grid(row=4, column=1)
+
+
+#    def New_App(self):
+#        New_Application()
+
+
 
 
 root = Tk()
