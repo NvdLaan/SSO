@@ -130,6 +130,9 @@ def Setup(): # Perform various checks what to do
 
 Setup()
 
+def callback():
+    print (name2.get())
+
 class SSO_App:
     def __init__(self, master):
         self.master = master
@@ -193,7 +196,9 @@ class SSO_App:
             pyautogui.moveTo(app_login_buttonx, app_login_buttony)  # click login button
             pyautogui.click()
 
+
     def New_App(self):
+
         top = tk.Toplevel()
         top.wm_title("New application")
 
@@ -222,6 +227,7 @@ class SSO_App:
         pass2 = tk.Entry(top, show='*',textvariable=pass0)
         pass2.grid(row=3, column=1)
 
+<<<<<<< HEAD
         butt1 = tk.Button(top, text="Save", command=top.destroy)
         butt1.grid(row=4, column=0)
 
