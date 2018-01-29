@@ -1,5 +1,5 @@
 import validators
-url="https://unifi.oscarr.nl:8443"
+url = "https://unifi.oscarr.nl:8443"
 if validators.url(url):
     print("Valid URL")
 else:

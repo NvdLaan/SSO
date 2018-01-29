@@ -8,19 +8,20 @@ import getpass
 import base64
 from sys import platform as _platform
 from tkinter import Tk, Label, Button
-import os
-import subprocess
+# import os
+# import subprocess
 import webbrowser
 
 
-### User configurable variables ###
+# User configurable variables ###
 
 # Filename in /tmp/ (MacOS & Linux) or c:\\temp\\ (Windows)
 filename = 'pytest.db'
 
-### END User configurable variables ###
+# END User configurable variables ###
 
-version = '0.3.2' # Versioning to prevent file conflicts
+version = '0.3.2'  # Versioning to prevent file conflicts
+
 
 def Detect():  # Detect the platform
     if _platform == "linux" or _platform == "linux2":
@@ -37,6 +38,7 @@ def Detect():  # Detect the platform
 
 pf = Detect()  # Creates variable with output of Detect()
 
+
 def Start():  # Compares the platform variable to the respected platform...
     # and returns the path+filename
     if pf == "linux":
@@ -50,6 +52,7 @@ def Start():  # Compares the platform variable to the respected platform...
 
 
 filepath = Start()  # Creates filepath variable with output of  Start()
+
 
 def Select():
     while True:
@@ -95,16 +98,20 @@ def Save_Credentials():  # Saves username + password + version in txt file
     file.write(';' + (str(loginbutton[1])))
     file.flush()
 
-
     Enter_Credentials()
 
-#Open applicaties in chrome
+
+# Open applicaties in chrome
 def Open_Facebook():
-    webbrowser.open ("https://www.facebook.com/")
+    webbrowser.open("https://www.facebook.com/")
+
+
 def Open_Google():
-    webbrowser.open ("https://www.google.com/")
+    webbrowser.open("https://www.google.com/")
+
+
 def Open_Twitter():
-    webbrowser.open ("https://www.twitter.com/")
+    webbrowser.open("https://www.twitter.com/")
 
 
 def Enter_Credentials():  # enters credentials from txt files, logs in
@@ -133,18 +140,16 @@ def Enter_Credentials():  # enters credentials from txt files, logs in
             loginbuttonx = int(lbx)
             loginbuttony = int(lby)
 
-    pyautogui.moveTo(usernamefieldx,usernamefieldy)  # Select username field, enter username
+    pyautogui.moveTo(usernamefieldx, usernamefieldy)
     pyautogui.click(clicks=3)
     pyautogui.click()
     pyautogui.typewrite(username)
 
-
-    pyautogui.moveTo(passwordfieldx,passwordfieldy)  # Select username field, enter password
+    pyautogui.moveTo(passwordfieldx, passwordfieldy)
     pyautogui.click(clicks=3)
     pyautogui.typewrite(password)
 
-
-    pyautogui.moveTo(loginbuttonx,loginbuttony)  # click login button
+    pyautogui.moveTo(loginbuttonx, loginbuttony)  # click login button
     pyautogui.click()
 
 
@@ -154,18 +159,18 @@ def Version():
             return (line.split(';')[0])
 
 
-def Login(): # Perform various checks what to do
+def Login():  # Perform various checks what to do
     if os.path.isfile(filepath):
         # If file exists run content check
         if os.stat(filepath).st_size == 0:
             # If file has no content run Save_Credentials()
             Save_Credentials()
         elif os.stat(filepath).st_size > 0:
-            # If file has content and is the same version run Enter_Credentials()
+            # If file has content and is the same version run Enter_Credentials
             if version == (Version()):
                 Enter_Credentials()
             else:
-            # If version is incorrect prompt for user action
+                # If version is incorrect prompt for user action
                 print('Version is different!!')
                 print('Do you want to rewrite the .db file?')
                 answer = input('Please indicate approval: [y/n]')
@@ -175,6 +180,7 @@ def Login(): # Perform various checks what to do
                 Save_Credentials()
     else:  # else run Save_Credentials()
         Save_Credentials()
+
 
 class SSO_App:
     def __init__(self, master):
@@ -198,8 +204,10 @@ class SSO_App:
 
     def Facebook(self):
         Login()
+
     def Google(self):
         Open_Google()
+
     def Twitter(self):
         Open_Twitter()
 

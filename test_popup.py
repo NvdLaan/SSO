@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showinfo
 
+
 def new_app():
     top = tk.Toplevel()
     top.wm_title("New application")
@@ -15,14 +16,12 @@ def new_app():
 
     name2 = tk.Entry(top,)
     name2.grid(row=0, column=1)
-    name2.insert(0, "Facebook")
 
     url1 = tk.Label(top, text="URL:")
     url1.grid(row=1, column=0)
 
     uname2 = tk.Entry(top,)
     uname2.grid(row=1, column=1)
-    uname = uname2.get()
 
     uname1 = tk.Label(top, text="Username:")
     uname1.grid(row=2, column=0)
@@ -42,8 +41,10 @@ def new_app():
     butt2 = ttk.Button(top, text="Cancel", command=top.destroy)
     butt2.grid(row=4, column=1)
 
+
 def popup_showinfo():
     showinfo("Window", "Hello World!")
+
 
 def popup_delete():
     top = tk.Toplevel()
@@ -73,6 +74,7 @@ class Application(ttk.Frame):
 
         self.button_showinfo = ttk.Button(self, text="Delete", command=popup_delete)
         self.button_showinfo.pack()
+
 
 root = tk.Tk()
 
